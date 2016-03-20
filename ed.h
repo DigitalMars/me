@@ -471,3 +471,7 @@ void msm_showcursor(void);
 void msm_hidecursor(void);
 int msm_getstatus(unsigned *pcol,unsigned *prow);
 #endif
+
+void setClipboard(char *s, size_t len);
+char *getClipboard();
+

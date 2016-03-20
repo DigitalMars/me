@@ -9,8 +9,12 @@
 
 #if     _WIN32
 #include	<windows.h>
+#include	<winuser.h>
+
 #include        <stdio.h>
 #include        <stdlib.h>
+#include        <string.h>
+
 #include	<msmouse.h>
 #include	<disp.h>
 #include	<malloc.h>
@@ -411,5 +415,50 @@ int ttgetc()
 Lret:
     return c;
 }
+
+void setClipboard(char *s, size_t len)
+{
+    if (OpenClipboard(NULL))
+    {
+	EmptyClipboard();
+
+	HGLOBAL hmem = GlobalAlloc(GMEM_MOVEABLE, (len + 1) * sizeof(char));
+	if (hmem)
+	{
+	    char *p = (char *)GlobalLock(hmem);
+	    memcpy(p, s, len * sizeof(char));
+	    p[len] = 0;
+	    GlobalUnlock(hmem);
+
+	    SetClipboardData(CF_TEXT, hmem);
+	}
+	CloseClipboard();
+    }
+}
+
+char *getClipboard()
+{
+    char *s = NULL;
+    if (IsClipboardFormatAvailable(CF_TEXT) &&
+        OpenClipboard(NULL))
+    { 
+	HANDLE h = GetClipboardData(CF_TEXT);	// CF_UNICODETEXT is UTF-16
+	if (h)
+	{   
+	    char *p = (char*)GlobalLock(h); 
+	    if (p)
+	    {
+		size_t len = strlen(p);
+		s = (char *)malloc(len + 1);
+		if (s)
+		    memcpy(s, p, len + 1);
+	    }
+	    GlobalUnlock(h);
+	} 
+	CloseClipboard();
+    }
+    return s; 
+}
+
 
 #endif /* _WIN32 */

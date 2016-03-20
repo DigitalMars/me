@@ -448,6 +448,14 @@ int i;
     kbp = &killbuffer[i];
 }
 
+kill_toClipboard()
+{
+#if _WIN32
+    if (kbp == &killbuffer[0])
+	setClipboard(kbp->buf, kbp->used);
+#endif
+}
+
 /*
  * Delete all of the text saved in the kill buffer. Called by commands when a
  * new kill context is being created. The kill buffer array is released, just
@@ -462,6 +470,25 @@ kill_freebuffer()
 		kbp->size = 0;
         }
 }
+
+kill_fromClipboard()
+{
+#if _WIN32
+    if (kbp == &killbuffer[0])
+    {
+	char *s = getClipboard();
+	if (s)
+	{
+	    kill_freebuffer();
+	    size_t len = strlen(s);
+	    kbp->buf = s;
+	    kbp->used = len;
+	    kbp->size = len + 1;
+	}
+    }
+#endif
+}
+
 
 /*
  * Append a character to the kill buffer, enlarging the buffer if there isn't

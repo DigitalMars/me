@@ -571,10 +571,10 @@ random_yank(f, n)
 {
         register int    c;
         register int    i;
-        extern   int    kused;
 
         if (n < 0)
 	    goto err;
+	kill_fromClipboard();
         while (n--)
 	{
 	    i = 0;
@@ -584,7 +584,10 @@ random_yank(f, n)
 		col = getcol(curwp->w_dotp,curwp->w_doto);
 		while ((c=kill_remove(i)) >= 0)
 		{
-		    if (c == '\n')
+		    if (c == '\r')
+		    {
+		    }
+		    else if (c == '\n')
 		    {	int nspaces;
 
 			if (curwp->w_dotp == curbp->b_linep)
@@ -614,7 +617,10 @@ random_yank(f, n)
 	    else
 		while ((c=kill_remove(i)) >= 0)
 		{
-		    if (c == '\n') {
+		    if (c == '\r')
+		    {
+		    }
+		    else if (c == '\n') {
 			if (random_newline(FALSE, 1) == FALSE)
 			    goto err;
 		    } else {
