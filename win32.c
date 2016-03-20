@@ -249,8 +249,8 @@ int __cdecl msm_getstatus(unsigned *pcol,unsigned *prow)
 		    ReadConsoleInput(hStdin,&buf,1,&cNumRead);	// discard
 		break;
 
-	    case KEY_EVENT:
-		break;
+//	    case KEY_EVENT:
+//		break;
 	}
 
 Lret:
