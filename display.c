@@ -217,7 +217,7 @@ vtmove(row, col)
  * column overflow is checked.
  * Startcol is the starting column on the screen.
  */
-vtputc(int c, int startcol)
+vtputc(int c, int startcol, int tabbase)
 {
     register VIDEO *vp;
 
@@ -228,16 +228,16 @@ vtputc(int c, int startcol)
     else if (c == '\t')
     {   int i;
 
-	i = hardtabsize - (vtcol % hardtabsize);
+	i = hardtabsize - ((vtcol - tabbase) % hardtabsize);
 	do
-            vtputc(config.tabchar,startcol);
+            vtputc(config.tabchar,startcol,tabbase);
 	while (--i);
     }
 #if SHOWCONTROL
     else if ((unsigned char)c < 0x20 || c == 0x7F)
     {
-        vtputc('^',startcol);
-        vtputc(c ^ 0x40,startcol);
+        vtputc('^',startcol,tabbase);
+        vtputc(c ^ 0x40,startcol,tabbase);
     }
 #endif
     else
@@ -307,14 +307,16 @@ int col;
 
 /***********************
  * Write a string to vtputc().
+ * Params:
+ *	p = string
+ *	startcol = text column of left side of screen
+ *	tabbase = 0 tab column
  */
 
-static vtputs(p,startcol)
-char *p;
-int startcol;
+static vtputs(char *p, int startcol, int tabbase)
 {
 	while (*p)
-		vtputc(*p++,startcol);
+		vtputc(*p++,startcol,tabbase);
 }
 
 /*
@@ -518,7 +520,7 @@ out:
 #endif
 		    if (j >= llength(lp))
 			break;
-                    vtputc(lgetc(lp, j),wp->w_startcol);
+                    vtputc(lgetc(lp, j),wp->w_startcol,0);
 		}
                 vteeol(wp->w_startcol);		/* clear remainder of line */
              }
@@ -557,7 +559,7 @@ out:
 			    }
 			    if (j >= llength(lp))
 				break;
-                            vtputc(lgetc(lp, j),wp->w_startcol);
+                            vtputc(lgetc(lp, j),wp->w_startcol,0);
 			}
 			if (inmark == 2)
 			    inmark = 0;
@@ -866,38 +868,38 @@ modeline(wp)
     bp = wp->w_bufp;
 
     if (bp->b_flag & BFRDONLY)
-	vtputc('R',0);
+	vtputc('R',0,0);
     else if ((bp->b_flag&BFCHG) != 0)                /* "*" if changed. */
-        vtputc('*',0);
+        vtputc('*',0,0);
     else
-        vtputc('-',0);
+        vtputc('-',0,0);
 
-    vtputs(EMACSREV,0);
-    vtputc(' ', 0);
+    vtputs(EMACSREV,0,0);
+    vtputc(' ', 0, 0);
 
     if (filcmp(bp->b_bname,bp->b_fname))
-    {	vtputs("-- Buffer: ",0);
-	vtputs(bp->b_bname,0);
-	vtputc(' ',0);
+    {	vtputs("-- Buffer: ",0,0);
+	vtputs(bp->b_bname,0,0);
+	vtputc(' ',0,0);
     }
     if (bp->b_fname[0] != 0)            /* File name. */
     {
-	vtputs("-- File: ",0);
-	vtputs(bp->b_fname,0);
-        vtputc(' ',0);
+	vtputs("-- File: ",0,0);
+	vtputs(bp->b_fname,0,0);
+        vtputc(' ',0,0);
     }
 
 #if WFDEBUG
-    vtputc('-',0);
-    vtputc((wp->w_flag&WFMODE)!=0  ? 'M' : '-',0);
-    vtputc((wp->w_flag&WFHARD)!=0  ? 'H' : '-',0);
-    vtputc((wp->w_flag&WFEDIT)!=0  ? 'E' : '-',0);
-    vtputc((wp->w_flag&WFMOVE)!=0  ? 'V' : '-',0);
-    vtputc((wp->w_flag&WFFORCE)!=0 ? 'F' : '-',0);
+    vtputc('-',0,0);
+    vtputc((wp->w_flag&WFMODE)!=0  ? 'M' : '-',0,0);
+    vtputc((wp->w_flag&WFHARD)!=0  ? 'H' : '-',0,0);
+    vtputc((wp->w_flag&WFEDIT)!=0  ? 'E' : '-',0,0);
+    vtputc((wp->w_flag&WFMOVE)!=0  ? 'V' : '-',0,0);
+    vtputc((wp->w_flag&WFFORCE)!=0 ? 'F' : '-',0,0);
 #endif
 
     while (vtcol < term.t_ncol)             /* Pad to full width. */
-        vtputc('-',0);
+        vtputc('-',0,0);
 }
 
 /*
@@ -1026,8 +1028,8 @@ mlreply(char *prompt, char *buf, unsigned maxchars)
 		startcol = col - promptlen;
 
 	    vtmove(term.t_nrow - 1, 0);
-	    vtputs(prompt,startcol);
-	    vtputs(buf,startcol);
+	    vtputs(prompt,startcol,0);
+	    vtputs(buf,startcol,promptlen);
 	    vteeol(startcol);
 	    mlchange();
 	    update();
@@ -1070,7 +1072,7 @@ mlreply(char *prompt, char *buf, unsigned maxchars)
 		return 0;
 
             case 0x07:                  /* Bell, abort */
-                vtputc(7, startcol);
+                vtputc(7, startcol,0);
 		mlchange();
 		goto err;		/* error	*/
 
@@ -1231,7 +1233,7 @@ void mlwrite(const char *fmt, ...)
 
     vtmove(term.t_nrow - 1, 0);
     attr = NORMATTR;
-    vtputs(buffer,0);
+    vtputs(buffer,0,0);
 
     savecol = vtcol;
     vteeol(0);
