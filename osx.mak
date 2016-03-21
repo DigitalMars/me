@@ -12,11 +12,11 @@ SRC= ed.h menu.h ansi.c basic.c bsdunix.c buffer.c capture.h \
 	capture.c file.c fileio.c ibmpc.c keypress.c line.c \
 	main.c memenu.c menu.c more.c mouse.c patchexe.c disprev.c \
 	display.c random.c region.c search.c spawn.c tcap.c termio.c \
-	vt52.c win32.c window.c word.c xterm.c screen.c
+	vt52.c win32.c window.c word.c xterm.c screen.c url.c
 
 OBJ= ansi.o basic.o buffer.o display.o file.o fileio.o line.o main.o \
 	random.o region.o search.o spawn.o xterm.o termio.o vt52.o \
-	window.o word.o more.o mouse.o
+	window.o word.o more.o mouse.o url.o
 
 SOURCE= ed.h $(SRC) osx.mak me.html disprev.c
 

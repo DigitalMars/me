@@ -475,3 +475,11 @@ int msm_getstatus(unsigned *pcol,unsigned *prow);
 void setClipboard(char *s, size_t len);
 char *getClipboard();
 
+// url.c
+int isURLchar(char c);
+size_t isURL(const char *s, size_t length);
+int inURL(const char *s, size_t length, size_t index);
+char *getURL(const char *s, size_t length, size_t index);
+
+void browseTo(const char *s);
+

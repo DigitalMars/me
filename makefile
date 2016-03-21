@@ -46,7 +46,7 @@ SRC= capture.h ed.h menu.h \
 	capture.c file.c fileio.c ibmpc.c keypress.c line.c \
 	main.c memenu.c menu.c more.c mouse.c patchexe.c disprev.c \
 	display.c random.c region.c search.c spawn.c tcap.c termio.c \
-	vt52.c win32.c window.c word.c xterm.c screen.c
+	vt52.c win32.c window.c word.c xterm.c screen.c url.c
 
 
 MAK= linux.mak win32.mak dos.mak dos32.mak makefile \

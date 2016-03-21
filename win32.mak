@@ -19,7 +19,7 @@ LFLAGS=/map
 OBJa= ansi.obj basic.obj buffer.obj display.obj file.obj fileio.obj line.obj
 OBJb= random.obj region.obj search.obj spawn.obj tcap.obj termio.obj vt52.obj
 OBJc= window.obj word.obj main.obj more.obj disprev.obj
-OBJd= mouse.obj menu.obj memenu.obj capture.obj patchexe.obj win32.obj
+OBJd= mouse.obj menu.obj memenu.obj capture.obj patchexe.obj win32.obj url.obj
 
 ALLOBJS=$(OBJa) $(OBJb) $(OBJc) $(OBJd)
 

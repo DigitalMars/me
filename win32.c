@@ -487,10 +487,15 @@ int help(f, n)
 	if (i + sizeof(doc) <= MAX_PATH)
 	{
 	    strcpy(resolved_name + i, doc);
-	    ShellExecuteA(NULL, "open", resolved_name, NULL, NULL, SW_SHOWNORMAL);
+	    browseTo(resolved_name);
 	}
     }
     return FALSE;
+}
+
+void browseTo(const char *s)
+{
+    ShellExecuteA(NULL, "open", s, NULL, NULL, SW_SHOWNORMAL);
 }
 
 #endif /* _WIN32 */

@@ -349,3 +349,20 @@ int Dcppcomment(int f,int n)
 err:
 	return FALSE;
 }
+
+/************************************
+ * Open browser on URL.
+ */
+int openBrowser(int f, int n)
+{
+#if _WIN32
+    struct LINE *dotp = curwp->w_dotp;
+    char *s = getURL(dotp->l_text, llength(dotp), curwp->w_doto);
+    if (s)
+    {
+	browseTo(s);
+	free(s);
+    }
+#endif
+    return FALSE;
+}

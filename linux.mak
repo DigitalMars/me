@@ -10,11 +10,11 @@ CFLAGS = -w $(FLGS) -DLINUX -DXTERM
 
 SRC= ansi.c basic.c buffer.c display.c file.c fileio.c line.c main.c \
 	random.c region.c search.c spawn.c xterm.c termio.c vt52.c \
-	window.c word.c more.c mouse.c keypress.c screen.c
+	window.c word.c more.c mouse.c keypress.c screen.c url.c
 
 OBJ= ansi.o basic.o buffer.o display.o file.o fileio.o line.o main.o \
 	random.o region.o search.o spawn.o xterm.o termio.o vt52.o \
-	window.o word.o more.o mouse.o
+	window.o word.o more.o mouse.o url.o
 
 SOURCE= ed.h $(SRC) linux.mak me.html disprev.c
 

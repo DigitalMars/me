@@ -176,6 +176,7 @@ extern  int     Dcppcomment();		/* convert to // comment	*/
 extern  int     Dinsertfile();          /* Insert a file                */
 #endif
 extern	int	help();			// display help documentation
+extern  int     openBrowser(int, int);  // open browser on URL at dot
 
 /*
  * Command table.
@@ -403,6 +404,7 @@ KEYTAB  keytab[] = {
 	0x8046,		random_hardtab,
 #if _WIN32
 	0x8047,		help,
+	0x8048,		openBrowser,
 #endif
 };
 
@@ -458,6 +460,9 @@ short esc_tab[][2] = {
         'B',            0x802A,         /* word_back            */
         'C',            0x802B,         /* capword              */
         'D',            0x802C,         /* delfword             */
+#if _WIN32
+	'E',		0x8048,		// openBrowser
+#endif
         'F',            0x802D,         /* word_forw            */
         'H',            0x8023,         /* delbword             */
         'I',            0x8024,         /* random_opttab        */
