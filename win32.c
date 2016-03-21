@@ -460,5 +460,37 @@ char *getClipboard()
     return s; 
 }
 
+/***********************
+ * Open browser on help file.
+ */
+
+#pragma includelib "shell32.lib"
+
+int help(f, n)
+{
+    char resolved_name[MAX_PATH + 1];
+    if (GetModuleFileNameA(NULL, resolved_name, MAX_PATH + 1))
+    {
+	size_t len = strlen(resolved_name);
+	size_t i;
+	for (i = len; i; --i)
+	{
+	    if (resolved_name[i] == '/' ||
+		resolved_name[i] == '\\' ||
+		resolved_name[i] == ':')
+	    {
+		++i;
+		break;
+	    }
+	}
+	static char doc[] = "me.html";
+	if (i + sizeof(doc) <= MAX_PATH)
+	{
+	    strcpy(resolved_name + i, doc);
+	    ShellExecuteA(NULL, "open", resolved_name, NULL, NULL, SW_SHOWNORMAL);
+	}
+    }
+    return FALSE;
+}
 
 #endif /* _WIN32 */

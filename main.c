@@ -175,6 +175,7 @@ extern  int     Dinsertdate();          /* File and date stamp          */
 extern  int     Dcppcomment();		/* convert to // comment	*/
 extern  int     Dinsertfile();          /* Insert a file                */
 #endif
+extern	int	help();			// display help documentation
 
 /*
  * Command table.
@@ -400,6 +401,9 @@ KEYTAB  keytab[] = {
         0x8044,         region_togglemode,
 	0x8045,		Dcppcomment,
 	0x8046,		random_hardtab,
+#if _WIN32
+	0x8047,		help,
+#endif
 };
 
 /* Translation table from 2 key sequence to single value        */
@@ -459,6 +463,9 @@ short esc_tab[][2] = {
         'I',            0x8024,         /* random_opttab        */
 	'J',		0x803E,		// Dundelline
         'L',            0x802E,         /* misc_lower           */
+#if _WIN32
+	'M',		0x8047,		// help
+#endif
         'N',            0x8019,         /* window_mvdn          */
         'P',            0x801B,         /* window_mvup          */
         'Q',            0x802F,         /* queryreplacestring   */

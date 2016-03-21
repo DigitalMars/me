@@ -587,3 +587,4 @@ int file_finish(s,nline)
 	    ffclose();                      /* if a write error.    */
     return s == FIOSUC;			/* TRUE if success	*/
 }
+
