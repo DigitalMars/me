@@ -59,6 +59,7 @@ int display_recalc()
 #define NORMATTR config.normattr	/* for normal text		*/
 #define EOLATTR  config.eolattr		/* for end of line		*/
 #define MARKATTR config.markattr	/* for selected text		*/
+#define URLATTR  config.urlattr		// for URL text
 
 display_eol_bg()
 {
@@ -520,7 +521,14 @@ out:
 #endif
 		    if (j >= llength(lp))
 			break;
-                    vtputc(lgetc(lp, j),wp->w_startcol,0);
+		    if (attr == NORMATTR && inurl(lp->l_text,llength(lp),j))
+		    {
+			attr = URLATTR;
+			vtputc(lgetc(lp, j),wp->w_startcol,0);
+			attr = NORMATTR;
+		    }
+		    else
+			vtputc(lgetc(lp, j),wp->w_startcol,0);
 		}
                 vteeol(wp->w_startcol);		/* clear remainder of line */
              }
@@ -559,7 +567,14 @@ out:
 			    }
 			    if (j >= llength(lp))
 				break;
-                            vtputc(lgetc(lp, j),wp->w_startcol,0);
+			    if (attr == NORMATTR && inurl(lp->l_text,llength(lp),j))
+			    {
+				attr = URLATTR;
+				vtputc(lgetc(lp, j),wp->w_startcol,0);
+				attr = NORMATTR;
+			    }
+			    else
+				vtputc(lgetc(lp, j),wp->w_startcol,0);
 			}
 			if (inmark == 2)
 			    inmark = 0;

@@ -24,6 +24,7 @@ int isURLchar(char c)
 	case '#':
         case '~':
         case '.':
+        case ':':
 	    return 1;
 
 	default:

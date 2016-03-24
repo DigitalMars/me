@@ -444,6 +444,7 @@ extern struct CONFIG
     unsigned eolattr;           /* for end of line              */
     unsigned markattr;          /* for selected text            */
     unsigned tabchar;           /* char to use for tab display  */
+    unsigned urlattr;           // for URLs
 } config;
 
 /**************
