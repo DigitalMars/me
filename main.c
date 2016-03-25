@@ -130,6 +130,7 @@ extern  int     listbuffers();          /* Display list of buffers      */
 extern  int     usebuffer();            /* Switch a window to a buffer  */
 extern  int     buffer_next();          /* Switch to next buffer        */
 extern  int     killbuffer();           /* Make a buffer go away.       */
+extern  int	word_wrap_line();	/* Word wrap current line	*/
 extern  int     word_select();          /* Select word                  */
 extern  int     word_back();            /* Backup by words              */
 extern  int     word_forw();            /* Advance by words             */
@@ -402,9 +403,10 @@ KEYTAB  keytab[] = {
         0x8044,         region_togglemode,
 	0x8045,		Dcppcomment,
 	0x8046,		random_hardtab,
+	0x8047,		word_wrap_line,
 #if _WIN32
-	0x8047,		help,
-	0x8048,		openBrowser,
+	0x8048,		help,
+	0x8049,		openBrowser,
 #endif
 };
 
@@ -461,7 +463,7 @@ short esc_tab[][2] = {
         'C',            0x802B,         /* capword              */
         'D',            0x802C,         /* delfword             */
 #if _WIN32
-	'E',		0x8048,		// openBrowser
+	'E',		0x8049,		// openBrowser
 #endif
         'F',            0x802D,         /* word_forw            */
         'H',            0x8023,         /* delbword             */
@@ -469,7 +471,7 @@ short esc_tab[][2] = {
 	'J',		0x803E,		// Dundelline
         'L',            0x802E,         /* misc_lower           */
 #if _WIN32
-	'M',		0x8047,		// help
+	'M',		0x8048,		// help
 #endif
         'N',            0x8019,         /* window_mvdn          */
         'P',            0x801B,         /* window_mvup          */
@@ -505,6 +507,7 @@ short ctlx_tab[][2] = {
         '!',            0x800A,		// spawn
         '1',            0x8008,		// window_only
         '2',            0x800B,		// window_split
+	'A',		0x8047,		// word_wrap_line
         'B',            0x800C,		// usebuffer
         'D',            0x800D,		// delwind
         'E',            0x800E,		// ctlxe
