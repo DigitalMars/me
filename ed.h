@@ -482,5 +482,6 @@ size_t isURL(const char *s, size_t length);
 int inURL(const char *s, size_t length, size_t index);
 char *getURL(const char *s, size_t length, size_t index);
 
-void browseTo(const char *s);
+// browse.c
+void browse(const char *s);
 

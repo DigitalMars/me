@@ -355,14 +355,13 @@ err:
  */
 int openBrowser(int f, int n)
 {
-#if _WIN32
     struct LINE *dotp = curwp->w_dotp;
     char *s = getURL(dotp->l_text, llength(dotp), curwp->w_doto);
     if (s)
     {
-	browseTo(s);
+	browse(s);
 	free(s);
+	return TRUE;
     }
-#endif
     return FALSE;
 }

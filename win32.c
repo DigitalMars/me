@@ -467,8 +467,6 @@ char *getClipboard()
  * Open browser on help file.
  */
 
-#pragma includelib "shell32.lib"
-
 int help(f, n)
 {
     char resolved_name[MAX_PATH + 1];
@@ -490,15 +488,10 @@ int help(f, n)
 	if (i + sizeof(doc) <= MAX_PATH)
 	{
 	    strcpy(resolved_name + i, doc);
-	    browseTo(resolved_name);
+	    browse(resolved_name);
 	}
     }
     return FALSE;
-}
-
-void browseTo(const char *s)
-{
-    ShellExecuteA(NULL, "open", s, NULL, NULL, SW_SHOWNORMAL);
 }
 
 #endif /* _WIN32 */
