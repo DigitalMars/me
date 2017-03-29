@@ -52,6 +52,10 @@ int display_recalc()
     return TRUE;
 }
 
+#if !IBMPC && !_WIN32
+void updateline(int row, char vline[], char pline[]);
+#endif
+
 #if IBMPC || _WIN32
 
 /* Attribute flags	*/
@@ -108,6 +112,7 @@ display_mark_fg()
 #define MODEATTR STANDATTR
 #define EOLATTR  NORMATTR
 #define MARKATTR STANDATTR
+#define URLATTR STANDATTR
 #endif
 
 int	sgarbf	= TRUE;			/* TRUE if screen is garbage */
@@ -347,7 +352,7 @@ int startcol;
  * screens the same.
  */
 
-update()
+void update()
 {
     register LINE *lp;
     register WINDOW *wp;
@@ -521,7 +526,7 @@ out:
 #endif
 		    if (j >= llength(lp))
 			break;
-		    if (attr == NORMATTR && inurl(lp->l_text,llength(lp),j))
+		    if (attr == NORMATTR && inURL(lp->l_text,llength(lp),j))
 		    {
 			attr = URLATTR;
 			vtputc(lgetc(lp, j),wp->w_startcol,0);
@@ -567,7 +572,7 @@ out:
 			    }
 			    if (j >= llength(lp))
 				break;
-			    if (attr == NORMATTR && inurl(lp->l_text,llength(lp),j))
+			    if (attr == NORMATTR && inURL(lp->l_text,llength(lp),j))
 			    {
 				attr = URLATTR;
 				vtputc(lgetc(lp, j),wp->w_startcol,0);
@@ -760,9 +765,7 @@ out:
  * RAINBOW version of this routine uses fast video.
  */
 #if !IBMPC && !_WIN32
-updateline(row, vline, pline)
-    char vline[];
-    char pline[];
+void updateline(int row, char vline[], char pline[])
 {
 #if RAINBOW
     register char *cp1;

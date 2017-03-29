@@ -273,7 +273,7 @@ KEYTAB  keytab[] = {
         CtrlHome,               gotobob,
         CtrlEnd,                gotoeob,
 #endif
-#if linux || __OpenBSD__ || __APPLE__
+#if linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
         F2KEY,                  Dsearchagain,
         F3KEY,                  search_paren,
         F4KEY,                  Dsearch,
@@ -434,7 +434,7 @@ short altf_tab[][2] = {
         DelKEY,         0x8041,         /* random_undelchar     */
         InsKEY,         0x8042,         /* random_openline      */
 #endif
-#if linux || __OpenBSD__ || __APPLE__
+#if linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
         F2KEY,          0x803E,         /* Dundelline           */
         F4KEY,          0x803F,         /* Dsearch              */
         CtrlRTKEY,      0x8040,         /* Dundelword           */
@@ -487,7 +487,7 @@ short esc_tab[][2] = {
         DNKEY,          0x8034,         /* Dadvance             */
         UPKEY,          0x8035,         /* Dbackup              */
 #endif
-#if linux || __OpenBSD__ || __APPLE__
+#if linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
         DNKEY,          0x8034,         /* Dadvance             */
         UPKEY,          0x8035,         /* Dbackup              */
 #elif TERMCAP

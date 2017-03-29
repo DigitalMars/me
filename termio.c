@@ -69,7 +69,7 @@ int islastchar;                         /* is there a last char?        */
 #endif
 #endif
 
-#if linux || __OpenBSD__ || __APPLE__
+#if linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
 #include	<termios.h>
 #include	<unistd.h>
 struct  termios  ostate;                 /* saved tty state */
@@ -170,7 +170,7 @@ ttopen()
 #endif
 #endif
 
-#if     linux || __OpenBSD__ || __APPLE__
+#if     linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
         /* Adjust output channel        */
         tcgetattr(1, &ostate);                       /* save old state */
         tcgetattr(1, &nstate);                       /* get base of new state */
@@ -224,7 +224,7 @@ ttclose()
 #endif
 #endif
 
-#if     linux || __OpenBSD__ || __APPLE__
+#if     linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
         tcsetattr(1, TCSADRAIN, &ostate);	// return to original mode
 #endif
 
@@ -273,7 +273,7 @@ ttputc(c)
         Put_Char(c);                    /* fast video */
 #endif
 
-#if     BSDUNIX || linux || __OpenBSD__ || __APPLE__
+#if     BSDUNIX || linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
         fputc(c, stdout);
 #endif
 }
@@ -309,7 +309,7 @@ ttflush()
         intsignal = FALSE;
 #endif
 #endif
-#if     BSDUNIX || linux || __OpenBSD__ || __APPLE__
+#if     BSDUNIX || linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
         fflush(stdout);
 #endif
 #if NCURSES
@@ -403,7 +403,7 @@ ttgetc()
         return c & 0xFFFF;
 #endif
 
-#if     BSDUNIX || linux || __OpenBSD__ || __APPLE__
+#if     BSDUNIX || linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
 #if NONBLOCK
         char buf;
 

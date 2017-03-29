@@ -6,7 +6,7 @@
 
 #include <time.h>
 
-#if __APPLE__ || linux || __OpenBSD__
+#if __APPLE__ || linux || __OpenBSD__ || __FreeBSD__
 #include <stdlib.h>
 #else
 extern char *malloc();

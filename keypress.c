@@ -1,4 +1,4 @@
-#if linux || __OpenBSD__
+#if linux || __OpenBSD__ || __FreeBSD__
 #include	<stdio.h>
 #include	<termios.h>
 #include	<unistd.h>

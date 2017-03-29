@@ -326,7 +326,7 @@ char    fname[];
         while (cp1!=&fname[0] && cp1[-1]!=':' && cp1[-1]!='\\')
                 --cp1;
 #endif
-#if     BSDUNIX || linux || __OpenBSD__ || __APPLE__
+#if     BSDUNIX || linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
         while (cp1!=&fname[0] && cp1[-1]!='/')
                 --cp1;
 #endif
@@ -474,7 +474,7 @@ char    *fn;
 	else
 		strcat(backupname, ".BAK");
 #endif
-#if BSDUNIX || linux || __OpenBSD__ || __APPLE__
+#if BSDUNIX || linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
 	while( s
 	 && backupname[s] != '/' )
 		s--;

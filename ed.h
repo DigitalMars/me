@@ -171,7 +171,7 @@ extern char *memmove();
 
 #endif /* IBM PC */
 #else /* not MSDOS */
-#if linux || __OpenBSD__ || __APPLE__
+#if linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
 #define UPKEY           0x4800          /* Up arrow key                 */
 #define DNKEY           0x5000          /* Down arrow key               */
 #define RTKEY           0x4D00          /* Right arrow key              */
@@ -453,7 +453,7 @@ extern struct CONFIG
  * (614) 457-8600       CompuServe: 70003,2443
  */
 
-#if __DMC__ || __APPLE__ || linux || __OpenBSD__
+#if __DMC__ || __APPLE__ || linux || __OpenBSD__ || __FreeBSD__
 #include        <stdlib.h>
 #else
 extern  char    *getenv();

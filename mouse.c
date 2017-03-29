@@ -213,7 +213,7 @@ static void mouse_markdrag(struct WINDOW *wp, struct LINE *lp, int doto)
 	clicks++;
 	lastclick = thisclick;
 
-#if linux || __OpenBSD__ || __APPLE__
+#if linux || __OpenBSD__ || __FreeBSD__ || __APPLE__
 	clicks = 0;
 #endif
 	switch (clicks)

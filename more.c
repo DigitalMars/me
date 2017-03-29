@@ -221,7 +221,7 @@ int f,n;
 		) p--;
 	strcpy(buf,p);			/* file name			*/
 	strcat(buf,"   ");		/* followed by spaces		*/
-#if !__OpenBSD__
+#if !__OpenBSD__ || __FreeBSD__
 #if BSDUNIX || LINUX || MSDOS || _WIN32
 	{	long t,time();
 		char *ctime(),*getlogin(),*getenv();

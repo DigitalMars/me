@@ -299,7 +299,7 @@ char *term;
 	lkroot = (struct LONGKEY *)malloc( sizeof(struct LONGKEY) );
 	lkroot->key = 0;	lkroot->ptr = NULL;
 
-#if linux || __OpenBSD__
+#if linux || __OpenBSD__ || __FreeBSD__
         build_one_long("\033[A", UPKEY);
 	build_one_long("\033[B", DNKEY);
 	build_one_long("\033[C", RTKEY);

@@ -274,7 +274,7 @@ char *str;
 			)
 		)
 		{	strcpy(str,str2);
-			return;
+			return 0;
 		}
 		strcpy(str,passwdPtr->pw_dir);
 		strcat(str,str2+i);
@@ -283,6 +283,7 @@ char *str;
 #if MSDOS || _WIN32
 	if( *str == '~' ) *str = '\\';
 #endif
+	return 0;
 }
 
 /*
