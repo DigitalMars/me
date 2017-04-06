@@ -1,4 +1,4 @@
 me
 ==
 
-Micro Emacs in D
+Micro Emacs in C
